@@ -45,16 +45,15 @@ class AmigosUsuarioListView(LoginRequiredMixin, generic.ListView):
     
 class AñadirSaldo(SuccessMessageMixin, generic.UpdateView):
     model = User
-    fields = '__all__'
+    fields = ['saldo']
     template_name = 'añadirSaldo.html'
     success_url = '/'
-    success_message = "%(title)s se ha modificado correctamente"
+    success_message = " se ha modificado correctamente"
     def form_valid(self, form):
-        if self.request.user.is_authenticated:
-            saldo = self.object.saldo
-            valor = form.instance.saldo
-            form.instance.saldo = saldo + valor
-        print(saldo, valor)
+        saldo = int(self.object.saldo)
+        nuevo = int(form.cleaned_data['saldo'])
+        print(nuevo)
+        form.instance.saldo = str(saldo + nuevo)
         return super().form_valid(form)
         
     def get_context_data(self, **kwargs):
