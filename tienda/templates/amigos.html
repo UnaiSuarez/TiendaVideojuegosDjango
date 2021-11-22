@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Mi superbiblio {% endblock %}
+{% block content %}
+    <link rel="stylesheet" href="../../media/estilos/inicio.css">
+<main>
+    <h2 id="title">Mis juegos</h2>
+    <section>
+        <div class="main">
+            <div class="row">
+                    {% for amigo in user.amigos.all %}
+                    <div class="columna">
+                        <div class="content">
+                            <h4 class="tituloVideojuego">{{amigo.username}}</h4>
+                        </div>
+                    </div>
+                    {% endfor %}
+            </div>
+        </div>
+        {% block pagination %}
+    {% if is_paginated %}
+        <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+                <span class="page-current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+                {% endif %}
+            </span>
+        </div>
+    {% endif %}
+  {% endblock %}
+    </section>
+</main>
+<footer>
+    <p>UNAI © 2020</p>
+</footer>
+{% endblock %}

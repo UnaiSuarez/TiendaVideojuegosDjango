@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Añadir saldo</h1>
+    <form action="" method="post">
+    {% csrf_token %}
+    <table>
+    {{form.saldo}}
+    </table>
+    <input type="submit" value="Modificar">
+  </form>
+  <p>{{user.saldo}}</p>
+{% endblock %}

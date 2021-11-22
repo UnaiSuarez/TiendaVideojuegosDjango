@@ -1,0 +1,30 @@
+ #title{
+  text-align: center;
+}
+
+.row{
+display: grid;
+grid-template-columns: auto auto auto;
+
+}
+
+.imagenJuego{
+  filter: brightness(75%);
+  width: 100%;
+  height: auto;
+
+}
+
+.main{
+  background-color: rgb(26, 26, 26);
+  text-align: center;
+  margin: 10px;
+}
+
+.tituloVideojuego{
+  color: white;
+}
+
+.content{
+  padding: 10px;
+}
