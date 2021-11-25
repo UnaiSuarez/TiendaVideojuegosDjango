@@ -2,7 +2,7 @@ from django.contrib import admin
 # from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
 # Register your models here.
-from .models import CompraVideojuego, Genre, Videojuego, Lenguaje, User
+from .models import  Genre, Videojuego, Lenguaje, User, ImagenVideojuego, VideoVideojuego
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
@@ -21,8 +21,13 @@ class GenreAdmin(admin.ModelAdmin):
 class LenguajeAdmin(admin.ModelAdmin):
     pass
 
-@admin.register(CompraVideojuego)
-class CompraVideojuegoAdmin(admin.ModelAdmin):
-        list_display = ['juego','usuarioCompra']
+@admin.register(VideoVideojuego)
+class VideoVideojuegoAdmin(admin.ModelAdmin):
+    list_display = ['name']
+
+@admin.register(ImagenVideojuego)
+class ImagenVideojuego(admin.ModelAdmin):
+    list_display = ['name']
+
 
 

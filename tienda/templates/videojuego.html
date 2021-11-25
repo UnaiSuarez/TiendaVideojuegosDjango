@@ -1,0 +1,108 @@
+{% extends "base.html" %} {% block title %}Robustiano Games{% endblock %} {% block content %}
+<link rel="stylesheet" href="../../media/estilos/videojuego.css">
+<style>
+    .botonComprar {
+        width: 100px;
+        height: 50px;
+        margin-bottom: 20px;
+    }
+    
+    .botonComprar:hover {
+        background-color: rgb(206, 206, 206);
+    }
+    
+    a {
+        text-decoration: none;
+    }
+</style>
+<script>
+    var vAudio = document.getElementById("audio");
+    var hasInit = false;
+
+    function playMusic() {
+        if (!hasInit) {
+            hasInit = true;
+            vAudio.play();
+        }
+    }
+
+    function cambiar(obj) {
+        let img = obj.id;
+        let img_dos = document.getElementById(img).src
+        console.log(img_dos)
+        document.getElementById("imagenPrincipal").src = img_dos
+    }
+    var i = 0
+</script>
+<main onmouseover="playMusic()">
+    <h2 id="title">{{pk}}</h2>
+    <section>
+        <div class="main">
+            <div class="row">
+                {% for videojuego in videojuego_list %} {% if videojuego.title == 'Battlefield 2042' %}
+                <audio id="audio" autoplay loop>
+                        <source src="../../media/audios/battlefieldSound.mp3" type="audio/mp3">
+                    </audio> {% endif %}
+                <div class="columna">
+                    <div style="text-align: center;">
+                        <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner" style="text-align: center;">
+                                {% for imagen in videojuego.imagen.all|slice:":1" %}
+                                <div class="carousel-item active" data-bs-interval="2000">
+                                    <img class="imagenPrincipal d-block w-100" id="imagenPrincipal" src="{{imagen.imagen.url}}" alt="Imagen" style="height:100%;width:100%; max-width: 1400px; padding: 10% 10% 1% 10%;">
+                                </div>
+                                {% endfor %} {% for imagen in videojuego.imagen.all|slice:"1:" %}
+                                <div class="carousel-item" data-bs-interval="2000">
+                                    <img class="imagenPrincipal d-block w-100" id="imagenPrincipal" src="{{imagen.imagen.url}}" alt="Imagen" style="height:100%;width:100%; max-width: 1400px; padding: 10% 10% 1% 10%;">
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                              </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                              </button>
+                        </div>
+
+                        <div class="imagenesJuego">
+                            {% for imagen in videojuego.imagen.all %}
+                            <img src="{{imagen.imagen.url}}" id="" class="imagenJuego" onclick="cambiar(this)" onload="agregarId(this)" alt="">
+                            <script>
+                                function agregarId(obj) {
+                                    obj.id = i
+                                    i++
+                                }
+                            </script>
+                            {% endfor %}
+                        </div>
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <button value="Comprar" class="botonComprar">Comprar</button>
+                        </form>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% block pagination %} {% if is_paginated %}
+        <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+                <span class="page-current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span> {% if page_obj.has_next %}
+            <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a> {% endif %}
+            </span>
+        </div>
+        {% endif %} {% endblock %}
+    </section>
+</main>
+<footer>
+    <p>UNAI © 2020</p>
+</footer>
+{% endblock %}

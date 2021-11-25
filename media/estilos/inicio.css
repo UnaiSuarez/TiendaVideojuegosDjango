@@ -1,30 +1,82 @@
- #title{
-  text-align: center;
-}
-
-.row{
-display: grid;
-grid-template-columns: auto auto auto;
-
-}
-
-.imagenJuego{
-  filter: brightness(75%);
-  width: 100%;
-  height: auto;
-
-}
-
-.main{
-  background-color: rgb(26, 26, 26);
-  text-align: center;
-  margin: 10px;
-}
-
-.tituloVideojuego{
-  color: white;
-}
-
-.content{
-  padding: 10px;
-}
+ #title {
+     text-align: center;
+ }
+ 
+ .row {
+     display: grid;
+     grid-template-columns: auto auto auto auto;
+ }
+ 
+ .content {
+     display: grid;
+     grid-template-rows: 60% 20% 20%;
+ }
+ 
+ .imagenJuego {
+     filter: brightness(75%);
+     width: 100%;
+     height: auto;
+ }
+ 
+ .main {
+     background-color: rgb(26, 26, 26);
+     text-align: center;
+     margin: 10px;
+ }
+ 
+ .tituloVideojuego {
+     color: white;
+ }
+ 
+ .content {
+     padding: 10px;
+ }
+ 
+ .botonComprar {
+     width: 100px;
+     height: 50px;
+     background-color: rgba(255, 255, 255, .55);
+     border-radius: 6px;
+     transition: 0.5s;
+ }
+ 
+ .botonComprar:hover {
+     background-color: rgb(206, 206, 206);
+     width: 103px;
+     height: 53px;
+ }
+ 
+ a {
+     text-decoration: none;
+ }
+ 
+ form {
+     text-align: center;
+ }
+ 
+ .generos {
+     background-color: #fff;
+     width: 110px;
+     border-radius: 3px;
+ }
+ 
+ @media only screen and (max-width: 1680px) {
+     .row {
+         display: grid;
+         grid-template-columns: auto auto auto;
+     }
+ }
+ 
+ @media only screen and (max-width: 950px) {
+     .row {
+         display: grid;
+         grid-template-columns: auto auto;
+     }
+ }
+ 
+ @media only screen and (max-width: 600px) {
+     .row {
+         display: grid;
+         grid-template-columns: auto;
+     }
+ }

@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 
-  <title>{% block title %}Local Library{% endblock %}</title>
+  <title>{% block title %}Robustiano Games{% endblock %}</title>
   <link rel="icon" href="../../media/images/logoRobustiano.png">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -74,6 +74,7 @@
           {% else %}
           <li>
             <a href="{% url 'login'%}?next={{request.path}}">Login</a>
+            <a href="{% url 'login'%}?next={{request.path}}">Register</a>
         </li>
           {% endif %} 
         </div>

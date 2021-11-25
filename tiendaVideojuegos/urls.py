@@ -19,14 +19,15 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls.conf import include
 
-from tienda.views import AmigosUsuarioListView, VideojuegosListView, VideojuegosUsuarioListView, AñadirSaldo
+from tienda.views import AmigosUsuarioListView, VideojuegoListView, VideojuegosListView, VideojuegosUsuarioListView, AñadirSaldo
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', VideojuegosListView.as_view(), name='inicio'),
-    path('/<str:pk>', VideojuegosListView.as_view(), name='inicio'),
+    path('<str:pk>', VideojuegosListView.as_view(), name='inicio'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('misJuegos/',VideojuegosUsuarioListView.as_view(), name ='juegosUsuario'),
+    path('videojuego/<str:pk>',VideojuegoListView, name ='videojuego'),
     path('misAmigos/', AmigosUsuarioListView.as_view(), name ='misAmigos'),
     path('añadirSaldo/<int:pk>', AñadirSaldo.as_view(), name ='añadirSaldo'),
 ]

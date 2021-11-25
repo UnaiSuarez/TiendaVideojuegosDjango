@@ -1,0 +1,64 @@
+ #title {
+     text-align: center;
+ }
+ 
+ .content {
+     display: grid;
+     grid-template-rows: 60% 20% 20%;
+ }
+ 
+ .imagenJuego {
+     filter: brightness(75%);
+     width: 100%;
+     height: auto;
+ }
+ 
+ .main {
+     background-color: rgb(26, 26, 26);
+     text-align: center;
+     margin: 10px;
+ }
+ 
+ .tituloVideojuego {
+     color: white;
+ }
+ 
+ .content {
+     padding: 10px;
+ }
+ 
+ .imagenesJuego {
+     display: grid;
+     grid-template-columns: auto auto auto auto;
+ }
+ 
+ .imagenJuego {
+     filter: brightness(75%);
+     width: 100%;
+     height: auto;
+ }
+ 
+ .imagenJuego {
+     filter: brightness(75%);
+     width: 50%;
+     height: auto;
+     margin: 20%;
+ }
+ 
+ .imagenPrincipal {
+     padding-bottom: 5%;
+ }
+ 
+ @media only screen and (max-width: 950px) {
+     .row {
+         display: grid;
+         grid-template-columns: auto auto;
+     }
+ }
+ 
+ @media only screen and (max-width: 600px) {
+     .row {
+         display: grid;
+         grid-template-columns: auto;
+     }
+ }

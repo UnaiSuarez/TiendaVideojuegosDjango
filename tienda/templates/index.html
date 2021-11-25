@@ -1,52 +1,87 @@
-{% extends "base.html" %}
-{% block title %}Mi superbiblio {% endblock %}
-{% block content %}
-    <link rel="stylesheet" href="../../media/estilos/inicio.css">
+{% extends "base.html" %} {% block title %}Robustiano Games{% endblock %} {% block content %}
+<link rel="stylesheet" href="../../media/estilos/inicio.css">
+
 <main>
     <h2 id="title">Novedades</h2>
-    <section>
-    </li>
-    <li class="nav-item dropdown">
-     <a class="nav-link dropdown-toggle" href="#" id="offcanvasNavbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <div style="text-align: center;">
+        <section>
+            </li>
+            <li class=" nav-item dropdown ">
+                <a class="nav-link dropdown-toggle generos " href="# " id="offcanvasNavbarDropdown " role="button " data-bs-toggle="dropdown " aria-expanded="false ">
        Generos
      </a>
-     <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">
-       {% for genre in genero %}
-       <li><a class="dropdown-item" href="{% url 'inicio' %}">{{genre}}</a></li>
-       {% endfor %}
-     </ul> 
-   </li>
-        <div class="main">
-            <div class="row">
-                {% for videojuego in videojuego_list %}
-                    <div class="columna">
-                        <div class="content">
-                            <img class="imagenJuego" src="{{videojuego.imagen.url}}" alt="Imagen" style="width:100%">
-                            <h4 class="tituloVideojuego">{{videojuego.title}}</h4>
-                            <button value="Comprar">Comprar</button>
+                <ul class="dropdown-menu " aria-labelledby="offcanvasNavbarDropdown ">
+                    {% for genre in genero %}
+                    <li><a class="dropdown-item " href="{% url 'inicio' pk=genre %} ">{{genre}}</a></li>
+                    {% endfor %}
+                </ul>
+            </li>
+            <form class="form-inline mt-2 mt-md-0 " action="{% url 'inicio' %} " method="get ">
+                <input name="q " class="form-control me-2 " type="search " placeholder="Search " aria-label="Search ">
+                <button class="btn btn-outline-success " type="submit ">Buscar</button>
+            </form>
+            <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel" style="padding: 10px; max-width: 800px;">
+                <div class="carousel-inner">
+                    {% for videojuego in videojuego_list|slice:":1" %} {% for imagen in videojuego.imagen.all|slice:":1" %}
+                    <div class="carousel-item active" data-bs-interval="2000">
+                        <img class="imagenPrincipal d-block w-100" id="imagenPrincipal" src="{{imagen.imagen.url}}" alt="Imagen" style="height:100%;width:100%;  max-height: 400px; max-width: 800px;">
+                    </div>
+                    {% endfor %} {% endfor %} {% for videojuego in videojuego_list|slice:"1:5" %} {% for imagen in videojuego.imagen.all|slice:":1" %}
+                    <div class="carousel-item" data-bs-interval="2000">
+                        <img class="imagenPrincipal d-block w-100" id="imagenPrincipal" src="{{imagen.imagen.url}}" alt="Imagen" style="height:100%;width:100%;  max-height: 400px; max-width: 800px;">
+                    </div>
+                    {% endfor %} {% endfor %}
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                  </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                  </button>
+            </div>
+            <div class="main ">
+                <div class="row ">
+                    {% for videojuego in videojuego_list %}
+                    <div class="columna ">
+                        <div class="content ">
+                            {% for imagen in videojuego.imagen.all|slice:":1 " %}
+                            <a href="{% url 'videojuego' pk=videojuego.title %} "><img class="imagenJuego " src="{{imagen.imagen.url}} " alt="Imagen " style="height:100%;width:100%; max-height: 200px; max-width: 400px; "></a>
+                            {% endfor %}
+                            <h4 class="tituloVideojuego ">{{videojuego.title}}</h4>
+                            <a href="{% url 'videojuego' pk=videojuego.title %} "><button value="Comprar " class="botonComprar ">Mas Información</button></a>
                         </div>
                     </div>
-                {% endfor %}
+                    {% endfor %}
+                </div>
             </div>
-        </div>
-        {% block pagination %}
-    {% if is_paginated %}
-        <div class="pagination">
-            <span class="page-links">
+            {% block pagination %} {% if is_paginated %}
+            <style>
+                .paginacion {
+                    margin: 20px;
+                    color: white;
+                    text-align: center;
+                }
+                
+                .page-links {
+                    background-color: black;
+                    box-shadow: rgb(56, 56, 56) 2px 2px 2px 2px;
+                }
+            </style>
+            <div class="paginacion ">
+                <span class="page-links ">
                 {% if page_obj.has_previous %}
-                    <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
+                    <a href="{{ request.path }}?page={{ page_obj.previous_page_number }} " style="color: white; ">Anterior</a>
                 {% endif %}
-                <span class="page-current">
-                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                <span class="page-current ">
+                     {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+                </span> {% if page_obj.has_next %}
+                <a href="{{ request.path }}?page={{ page_obj.next_page_number }} " style="color: white; ">Siguiente</a> {% endif %}
                 </span>
-                {% if page_obj.has_next %}
-                    <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
-                {% endif %}
-            </span>
-        </div>
-    {% endif %}
-  {% endblock %}
-    </section>
+            </div>
+            {% endif %} {% endblock %}
+        </section>
 </main>
 <footer>
     <p>UNAI © 2020</p>

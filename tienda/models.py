@@ -1,3 +1,4 @@
+from os import name, truncate
 from django.db import models
 from django.db.models.fields import CharField
 from django.urls import reverse
@@ -29,15 +30,24 @@ class Genre(models.Model):
     class Meta:
         verbose_name = 'Genero'
         verbose_name_plural = 'Generos'
-        
+
+class ImagenVideojuego(models.Model):
+    name= models.CharField(primary_key = True,max_length=500)
+    imagen = models.FileField(upload_to='images/logos', blank=True,)
+
+class VideoVideojuego(models.Model):
+    name= models.CharField(primary_key = True,max_length=500)
+    video = models.FileField(upload_to='videos/juegos', blank=True)
+
 
 class Videojuego(models.Model):
     '''Libro de aplicacion de biblioteca...'''
     title = models.CharField(primary_key = True, max_length=250)
     summary = models.TextField(blank=True)
-    precio = models.CharField(max_length=20, blank=True)
+    precio = models.DecimalField(max_length=20, blank=True, decimal_places=2, max_digits=5)
     fecha = models.DateField(auto_now=True, null=True, help_text='Fecha de publicacion')
-    imagen = models.ImageField(upload_to='images/logos', blank=True)
+    imagen = models.ManyToManyField(ImagenVideojuego, blank=True, null=True)
+    video = models.ManyToManyField(VideoVideojuego, blank=True, null=True)
     #relaciones de autor y genero
     genre = models.ManyToManyField(Genre)
     lenguaje = models.ManyToManyField(Lenguaje)
@@ -61,14 +71,8 @@ class Videojuego(models.Model):
         verbose_name_plural = 'Videojuegos'    
         
 class User(AbstractUser):
-    saldo = models.CharField(max_length=100, blank=True, null=True)
+    saldo = models.DecimalField(max_length=20, blank=True, decimal_places=2, max_digits=1000)
     juegosComprados = models.ManyToManyField(Videojuego, null=True, blank=True)  
     amigos = models.ManyToManyField('self', null=True, blank=True)  
     imagen = models.ImageField(upload_to='images/avatares', blank=True)
-
-class CompraVideojuego(models.Model):
-    juego = models.ForeignKey(Videojuego, on_delete=models.CASCADE)
-    fechaCompra = models.DateField("Fecha compra", null=True, blank=True)
-    precioCompra = models.CharField(blank=True, max_length=20)
-    usuarioCompra = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 

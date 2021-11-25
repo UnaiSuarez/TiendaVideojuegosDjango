@@ -1,25 +1,27 @@
-{% extends "base.html" %}
-{% block title %}Mi superbiblio {% endblock %}
-{% block content %}
-    <link rel="stylesheet" href="../../media/estilos/inicio.css">
+{% extends "base.html" %} {% block title %}Robustiano Games{% endblock %} {% block content %}
+<link rel="stylesheet" href="../../media/estilos/inicio.css">
+<style>
+
+</style>
 <main>
     <h2 id="title">Mis juegos {{user.username}}</h2>
     <section>
         <div class="main">
             <div class="row">
-                    {% for videojuego in user.juegosComprados.all %}
-                    <div class="columna">
-                        <div class="content">
-                            <img class="imagenJuego" src="{{videojuego.imagen.url}}" alt="Imagen"  style="width:100%">
-                            <h4 class="tituloVideojuego">{{videojuego.title}}</h4>
-                            <input type="button" value="Comprar">
-                        </div>
+                {% for videojuego in user.juegosComprados.all %}
+                <div class="columna">
+                    <div class="content">
+                        {% for imagen in videojuego.imagen.all|slice:":1" %}
+                        <a href="#"><img class="imagenJuego" src="{{imagen.imagen.url}}" alt="Imagen" style="height:100%;width:100%;  max-height: 200px; max-width: 400px;"></a>
+                        {% endfor %}
+                        <h4 class="tituloVideojuego">{{videojuego.title}}</h4>
+                        <a href="#"><button value="Comprar" class="botonComprar">Informacion</button></a>
                     </div>
-                    {% endfor %}
+                </div>
+                {% endfor %}
             </div>
         </div>
-        {% block pagination %}
-    {% if is_paginated %}
+        {% block pagination %} {% if is_paginated %}
         <div class="pagination">
             <span class="page-links">
                 {% if page_obj.has_previous %}
@@ -27,14 +29,11 @@
                 {% endif %}
                 <span class="page-current">
                     Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-                </span>
-                {% if page_obj.has_next %}
-                    <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
-                {% endif %}
+                </span> {% if page_obj.has_next %}
+            <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a> {% endif %}
             </span>
         </div>
-    {% endif %}
-  {% endblock %}
+        {% endif %} {% endblock %}
     </section>
 </main>
 <footer>

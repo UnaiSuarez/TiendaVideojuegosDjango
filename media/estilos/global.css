@@ -6,7 +6,6 @@
 
 body {
     background-color: rgb(37, 37, 37);
-    
 }
 
 nav {
@@ -18,11 +17,10 @@ nav {
     transition: padding 0.5s;
 }
 
-.menu{
+.menu {
     width: 60px;
     height: 60px;
 }
-
 
 nav * {
     align-self: center;
@@ -38,18 +36,18 @@ nav a {
     padding-left: 10px;
 }
 
-
 h1,
 h2,
 h3 {
     color: white;
 }
-main{
+
+main {
     margin: auto;
     width: 75%;
 }
 
-nav .icon{
+nav .icon {
     display: none;
     position: absolute;
     top: 5px;
@@ -57,49 +55,13 @@ nav .icon{
     font-size: 50px;
 }
 
-footer{
-     grid-area: footer;
+footer {
+    grid-area: footer;
     background: black;
     padding: 15px;
-     text-align: center;
+    text-align: center;
 }
 
-footer p{
+footer p {
     color: white;
-}
-
-@media screen and (max-width: 1000px) {
-
-    nav {
-        display: flex;
-        flex-direction: column;
-        height: auto;
-    }
-
-    .links{
-        display: none;
-    }
-
-    .visible{
-        display: flex;
-        flex-direction: column;
-    }
-
-    nav .icon{
-        display: block;
-    }
-
-    main{
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        
-    }
-
-    footer{
-        width: 100%;
-        padding: 15px 0px;
-    }
-
-
 }
