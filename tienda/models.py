@@ -41,14 +41,12 @@ class VideoVideojuego(models.Model):
 
 
 class Videojuego(models.Model):
-    '''Libro de aplicacion de biblioteca...'''
     title = models.CharField(primary_key = True, max_length=250)
     summary = models.TextField(blank=True)
     precio = models.DecimalField(max_length=20, blank=True, decimal_places=2, max_digits=5)
     fecha = models.DateField(auto_now=True, null=True, help_text='Fecha de publicacion')
     imagen = models.ManyToManyField(ImagenVideojuego, blank=True, null=True)
     video = models.ManyToManyField(VideoVideojuego, blank=True, null=True)
-    #relaciones de autor y genero
     genre = models.ManyToManyField(Genre)
     lenguaje = models.ManyToManyField(Lenguaje)
 
@@ -75,4 +73,11 @@ class User(AbstractUser):
     juegosComprados = models.ManyToManyField(Videojuego, null=True, blank=True)  
     amigos = models.ManyToManyField('self', null=True, blank=True)  
     imagen = models.ImageField(upload_to='images/avatares', blank=True)
+
+
+class TarjetaRegalo(models.Model):
+    saldo = models.DecimalField(max_length=5, blank=False, decimal_places=2, max_digits=100)
+    codigo = models.CharField(max_length=10000, blank=False, primary_key=True)
+    
+        
 

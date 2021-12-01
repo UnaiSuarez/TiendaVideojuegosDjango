@@ -48,7 +48,7 @@
                         <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
                             <div class="carousel-inner" style="text-align: center;">
                                 {% for imagen in videojuego.imagen.all|slice:":1" %}
-                                <div class="carousel-item active" data-bs-interval="2000">
+                                <div class="carousel-item active">
                                     <img class="imagenPrincipal d-block w-100" id="imagenPrincipal" src="{{imagen.imagen.url}}" alt="Imagen" style="height:100%;width:100%; max-width: 1400px; padding: 10% 10% 1% 10%;">
                                 </div>
                                 {% endfor %} {% for imagen in videojuego.imagen.all|slice:"1:" %}

@@ -7,20 +7,18 @@
         <section>
             </li>
             <li class=" nav-item dropdown ">
-                <a class="nav-link dropdown-toggle generos " href="# " id="offcanvasNavbarDropdown " role="button " data-bs-toggle="dropdown " aria-expanded="false ">
-       Generos
-     </a>
+                <a class="nav-link dropdown-toggle generos" href="" id="offcanvasNavbarDropdown " role="button " data-bs-toggle="dropdown " aria-expanded="false ">Generos</a>
                 <ul class="dropdown-menu " aria-labelledby="offcanvasNavbarDropdown ">
                     {% for genre in genero %}
                     <li><a class="dropdown-item " href="{% url 'inicio' pk=genre %} ">{{genre}}</a></li>
                     {% endfor %}
                 </ul>
             </li>
-            <form class="form-inline mt-2 mt-md-0 " action="{% url 'inicio' %} " method="get ">
-                <input name="q " class="form-control me-2 " type="search " placeholder="Search " aria-label="Search ">
+            <form class="form-inline mt-2 mt-md-0 " action="{% url 'inicio' %} " method="get">
+                <input name="q" class="form-control me-2 " type="search " placeholder="Search " aria-label="Search ">
                 <button class="btn btn-outline-success " type="submit ">Buscar</button>
             </form>
-            <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel" style="padding: 10px; max-width: 800px;">
+            <div id="carouselExampleInterval" class="carousel slide offset-1" data-bs-ride="carousel" style="padding: 10px; max-width: 800px;">
                 <div class="carousel-inner">
                     {% for videojuego in videojuego_list|slice:":1" %} {% for imagen in videojuego.imagen.all|slice:":1" %}
                     <div class="carousel-item active" data-bs-interval="2000">

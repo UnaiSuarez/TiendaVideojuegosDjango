@@ -2,7 +2,7 @@ from django.contrib import admin
 # from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
 # Register your models here.
-from .models import  Genre, Videojuego, Lenguaje, User, ImagenVideojuego, VideoVideojuego
+from .models import  Genre, TarjetaRegalo, Videojuego, Lenguaje, User, ImagenVideojuego, VideoVideojuego
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
@@ -28,6 +28,10 @@ class VideoVideojuegoAdmin(admin.ModelAdmin):
 @admin.register(ImagenVideojuego)
 class ImagenVideojuego(admin.ModelAdmin):
     list_display = ['name']
+    
+@admin.register(TarjetaRegalo)
+class TarjetaRegaloAdmin(admin.ModelAdmin):
+    list_display = ['saldo','codigo']
 
 
 

@@ -1,43 +1,66 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block content %}
 
-{% block content %}
+<link rel="stylesheet" href="../../../media/estilos/global.css">
 <style>
-  p{
-    color: white;
-  }
+    main {
+        width: 60%;
+    }
+    
+    nav {
+        text-align: center;
+    }
+    
+    form div {
+        padding: 20px 0px 0px 10px;
+    }
+    
+    #login {
+        width: 80px;
+        height: 40px;
+        border-radius: 30px;
+    }
+    
+    #login:hover {
+        background-color: rgb(212, 212, 212);
+    }
+    
+    a:hover {
+        color: rgb(212, 212, 212);
+    }
 </style>
-{% if form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
-{% endif %}
+<main>
+    <nav>
+        <div class="contenedor">
+            {% if form.errors %}
+            <p>Your username and password didn't match. Please try again.</p>
+            {% endif %} {% if next %} {% if user.is_authenticated %}
+            <p>Your account doesn't have access to this page. To proceed, please login with an account that has access.</p>
+            {% else %}
+            <p>Please login to see this page.</p>
+            {% endif %} {% endif %}
 
-{% if next %}
-    {% if user.is_authenticated %}
-    <p>Your account doesn't have access to this page. To proceed,
-    please login with an account that has access.</p>
-    {% else %}
-    <p>Please login to see this page.</p>
-    {% endif %}
-{% endif %}
 
-<form method="post" action="{% url 'login' %}">
-{% csrf_token %}
+            <form method="post" action="{% url 'login' %}">
+                {% csrf_token %}
 
-<div>
-  <td>{{ form.username.label_tag }}</td>
-  <td>{{ form.username }}</td>
-</div>
-<div>
-  <td>{{ form.password.label_tag }}</td>
-  <td>{{ form.password }}</td>
-</div>
+                <div>
+                    <td>{{ form.username.label_tag }}</td>
+                    <td>{{ form.username }}</td>
+                </div>
+                <div>
+                    <td>{{ form.password.label_tag }}</td>
+                    <td>{{ form.password }}</td>
+                </div>
 
-<div>
-  <input type="submit" value="login" />
-  <input type="hidden" name="next" value="{{ next }}" />
-</div>
-</form>
+                <div>
+                    <input id="login" type="submit" value="login" />
+                    <input type="hidden" name="next" value="{{ next }}" />
+                </div>
+            </form>
 
-{# Assumes you setup the password_reset view in your URLconf #}
-<p><a href="{% url 'password_reset' %}">Lost password?</a></p>
-
+            {# Assumes you setup the password_reset view in your URLconf #}
+            <p style="padding: 20px 0px 0px 10px;"><a href="{% url 'password_reset' %}">Lost password?</a></p>
+        </div>
+    </nav>
+</main>
 {% endblock %}

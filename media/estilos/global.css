@@ -17,17 +17,15 @@ nav {
     transition: padding 0.5s;
 }
 
-.menu {
-    width: 60px;
-    height: 60px;
-}
-
 nav * {
     align-self: center;
 }
 
 nav a,
-nav h2 {
+nav h2,
+nav p,
+p,
+label {
     color: whitesmoke;
 }
 
