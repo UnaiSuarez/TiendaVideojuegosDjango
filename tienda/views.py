@@ -94,7 +94,8 @@ class AmigosUsuarioListView(LoginRequiredMixin, generic.ListView):
     model = User
     paginate_by = 6
     template_name = 'amigos.html'
-    
+
+# en este momento no funcional, no lo borro ya que es otra posibilidad
 class AñadirSaldo(LoginRequiredMixin, SuccessMessageMixin, generic.UpdateView):
     model = User
     fields = ['saldo']
@@ -122,7 +123,7 @@ class AñadirSaldo(LoginRequiredMixin, SuccessMessageMixin, generic.UpdateView):
 
 def crear_usuario(request):
     if request.method == 'POST':
-        form = UserForm(request.POST)
+        form = UserForm(request.POST, request.FILES)
         if form.is_valid():
             password = form.cleaned_data['password']
             passwordCi = make_password(password)
@@ -178,7 +179,6 @@ def AñadirSaldo2(request):
         if form.is_valid():
             codigos = TarjetaRegalo.objects.all()
             for codigo in codigos:
-                print(codigo)
                 if codigo.codigo == form.cleaned_data['codigo']:
                     if codigo.habilitado == True:
                         añadirSaldo = True
@@ -212,3 +212,31 @@ def contact(request):
         form = ContactForm()
     datos.update({'form': ContactForm()})
     return render(request,'contact.html', context=datos)
+
+def AñadirAmigo(request, pk):
+    if request.method == 'GET':
+        videojuego = Videojuego.objects.filter(title = pk)
+        datos.update({'videojuego_list': videojuego, 'pk':pk})
+    elif request.method == 'POST':
+        usuario = request.user
+        if usuario.is_anonymous:
+            messages.add_message(request, messages.SUCCESS,'Usted no ha iniciado sesion')
+            return redirect('/accounts/login')
+        else:
+            videojuegos = Videojuego.objects.filter(title = pk)
+            for videojuego in videojuegos:
+                if videojuego in usuario.juegosComprados.all():
+                   messages.add_message(request, messages.SUCCESS,'Usted ya tiene comprado este videojuego.')
+                else:
+                    if usuario.saldo >= videojuego.precio:
+                        usuario.saldo = usuario.saldo - videojuego.precio
+                        usuario.juegosComprados.add(videojuego)
+                        messages.add_message(request, messages.SUCCESS,'Juego comprado.')
+                        usuario.save()
+                    else:
+                     messages.add_message(request, messages.SUCCESS,'No tienes dinero suficiente.')
+        
+            
+        return redirect('/')
+    
+    return render(request, 'videojuego.html', context=datos)
