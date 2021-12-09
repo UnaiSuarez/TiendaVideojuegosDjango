@@ -140,7 +140,7 @@ class EliminarVideojuego(SuccessMessageMixin, LoginRequiredMixin, generic.Delete
     model = Videojuego
     success_url = '/'
     success_message = "El Videojuego se ha borrado correctamente"
-    template_name = 'videojuego_confirmar_borrado.html'
+    template_name = 'viedojuego_confirmar_borrado.html'
     
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, self.success_message)

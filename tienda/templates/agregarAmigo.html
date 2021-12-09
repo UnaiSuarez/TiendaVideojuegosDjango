@@ -1,0 +1,38 @@
+{% extends "base.html" %} {% block title %}Robustiano Games{% endblock %} {% block content %}
+<link rel="stylesheet" href="../../media/estilos/amigos.css">
+<main>
+    <h2 id="title">Añadir Amigos</h2>
+    <section>
+        <div id="cajaAmigos">
+            <h2>Añadir Amigos</h2>
+            <ul id="misAmigos">
+                {% for amigo in user.amigos.all %}
+                <li class="amigo">
+                    <h3>{{amigo.username}}</h3> 
+                    {% if amigo.imagen.url != null%}
+                        <img style="border-radius: 100%;" src="{{amigo.imagen.url}}" alt=""> {% else %}
+                        <img style="border-radius: 50%;" src="../../media/images/avatares/avatarDefecto.png" alt=""> {% endif %}
+                        <button>Agregar</button>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% block pagination %} {% if is_paginated %}
+        <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+                <span class="page-current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span> {% if page_obj.has_next %}
+            <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a> {% endif %}
+            </span>
+        </div>
+        {% endif %} {% endblock %}
+    </section>
+</main>
+<footer>
+    <p>UNAI © 2020</p>
+</footer>
+{% endblock %}

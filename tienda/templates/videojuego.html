@@ -81,6 +81,10 @@
                         <form action="" method="post">
                             {% csrf_token %}
                             <button value="Comprar" class="botonComprar">Comprar</button>
+                            {% if perms.tienda.edit_videojuego %}
+                            <a href="{% url 'editarVideojuego' pk=videojuego %}"><img style="filter:invert(100%)" src="https://img.icons8.com/material-outlined/24/000000/pencil--v1.png"/></a>
+                            <a href="{% url 'eliminarVideojuego' pk=videojuego %}"><img style="filter:invert(100%)" src="https://img.icons8.com/ios/25/000000/trash--v1.png"/></a>
+                            {% endif %}
                         </form>
                     </div>
                 </div>
