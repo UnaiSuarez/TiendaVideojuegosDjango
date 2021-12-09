@@ -20,7 +20,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls.conf import include
 
-from tienda.views import AmigosUsuarioListView, VideojuegoListView, VideojuegosListView, VideojuegosUsuarioListView, AñadirSaldo, crear_usuario
+from tienda.views import AmigosUsuarioListView, VideojuegoListView, VideojuegosListView, VideojuegosUsuarioListView, AñadirSaldo, AñadirSaldo2, contact, crear_tarjeta, crear_usuario
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,8 +30,10 @@ urlpatterns = [
     path('misJuegos/',VideojuegosUsuarioListView.as_view(), name ='juegosUsuario'),
     path('videojuego/<str:pk>',VideojuegoListView, name ='videojuego'),
     path('misAmigos/', AmigosUsuarioListView.as_view(), name ='misAmigos'),
-    path('añadirSaldo/<int:pk>', AñadirSaldo.as_view(), name ='añadirSaldo'),
+    path('añadirSaldo/', AñadirSaldo2, name ='añadirSaldo'),
     path('registro/', crear_usuario, name='registro'),
+    path('crearTarjeta/', crear_tarjeta, name ='crearTarjeta'),
+    path('contacto/', contact, name ='contacto'),
 ]
 
 

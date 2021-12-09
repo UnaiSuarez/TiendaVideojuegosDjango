@@ -33,7 +33,7 @@
                         <a class="nav-link" href="#">Noticias</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contacto</a>
+                        <a class="nav-link" href="{% url 'contacto' %}">Contacto</a>
                     </li>
                     {% if user.is_authenticated %}
                     <li class="nav-item">
@@ -49,20 +49,29 @@
                 {% if user.is_authenticated %}
                 <div class="btn-group float-end">
                     <span style="color:white;">saldo: {{user.saldo}}</span>
-                    <a href="#" class="dropdown-toggle text-decoration-none text-light" data-bs-toggle="dropdown">
+                    <a href="#" style="width: 40%;" class="dropdown-toggle text-decoration-none text-light" data-bs-toggle="dropdown">
                         <i class="bi bi-person-circle"></i>
                         <style>
                             .avatar {
-                                box-shadow: 1px 1px 1px 1px gray;
                                 border-radius: 100%;
+                                width: 40%;
+                                height: 40%;
                             }
                         </style>
-                        <span>{{user.username}}</span>
+                        <span>{{user.username}} 
+                            {% if user.imagen.url != null%}
+                            <img class="avatar" src="{{user.imagen.url}}" alt="" >
+                            {% else %}
+                            <img class="avatar" src="../../media/images/avatares/avatarDefecto.png" alt="" >
+                            {% endif %}
+                        </span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a href="#" class="dropdown-item"><i class="bi bi-lock-fill"></i> Cambiar Contraseña</a></li>
                         <li><a href="#" class="dropdown-item"><i class="bi bi-gear-wide-connected"></i> Settings</a></li>
-                        <li><a href="{% url 'añadirSaldo' pk=user.id %}" class="dropdown-item"><i class="bi bi-gear-wide-connected"></i> Añadir saldo</a></li>
+                        <li><a href="{% url 'añadirSaldo' %}" class="dropdown-item"><i class="bi bi-gear-wide-connected"></i> Añadir saldo</a></li>
+                        {% if perms.tienda.add_tarjetaregalo %}
+                        <li><a href="{% url 'crearTarjeta' %}" class="dropdown-item"><i class="bi bi-gear-wide-connected"></i> Crear Tarjeta regalo</a></li>
+                        {% endif %}
                         <li>
                             <hr class="dropdown-divider">
                         </li>

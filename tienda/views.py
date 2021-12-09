@@ -2,13 +2,14 @@ from django.shortcuts import redirect, render
 from django.conf import settings
 import os
 from django.views import generic
-from tienda.forms import UserForm
-from tienda.models import  Genre, User, Videojuego
+from tienda.forms import ContactForm, CrearTarjetaForm, UserForm, AñadirSaldoForm
+from tienda.models import  Genre, TarjetaRegalo, User, Videojuego
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 import requests
 from django.contrib.auth.hashers import make_password, check_password
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -94,7 +95,7 @@ class AmigosUsuarioListView(LoginRequiredMixin, generic.ListView):
     paginate_by = 6
     template_name = 'amigos.html'
     
-class AñadirSaldo(SuccessMessageMixin, generic.UpdateView):
+class AñadirSaldo(LoginRequiredMixin, SuccessMessageMixin, generic.UpdateView):
     model = User
     fields = ['saldo']
     template_name = 'añadirSaldo.html'
@@ -135,7 +136,7 @@ def crear_usuario(request):
     datos.update({'form': UserForm()})
     return render(request, 'registrarUsuario.html', context=datos)
 
-class EliminarVideojuego(SuccessMessageMixin, generic.DeleteView):
+class EliminarVideojuego(SuccessMessageMixin, LoginRequiredMixin, generic.DeleteView):
     model = Videojuego
     success_url = '/'
     success_message = "El Videojuego se ha borrado correctamente"
@@ -145,9 +146,69 @@ class EliminarVideojuego(SuccessMessageMixin, generic.DeleteView):
         messages.success(self.request, self.success_message)
         return super(EliminarVideojuego, self).delete(request, *args, **kwargs)
     
-class ModificarVideojuego(SuccessMessageMixin, generic.UpdateView):
+class ModificarVideojuego(SuccessMessageMixin, LoginRequiredMixin, generic.UpdateView):
     model = Videojuego
     fields = '__all__'
     template_name = 'modificar_videojuego.html'
     success_url = '/'
     success_message = "%(title)s se ha modificado correctamente"
+
+@login_required
+def crear_tarjeta(request):
+    if request.method == 'POST':
+        form = CrearTarjetaForm(request.POST)
+        if form.is_valid():
+            form.instance.codigo = form.cleaned_data['codigo']
+            form.instance.saldo = form.cleaned_data['saldo']
+            form.instance.habilitado = True
+            form.save()
+            messages.add_message(request, messages.SUCCESS,'Tarjeta regalo creado.')
+            return redirect('/')
+    else:
+        form = CrearTarjetaForm()
+    datos.update({'form': CrearTarjetaForm()})
+    return render(request, 'crearTarjetaregalo.html', context= datos)
+
+@login_required
+def AñadirSaldo2(request):
+    añadirSaldo = True
+    usuario = request.user
+    if request.method == 'POST':
+        form = AñadirSaldoForm(request.POST)
+        if form.is_valid():
+            codigos = TarjetaRegalo.objects.all()
+            for codigo in codigos:
+                print(codigo)
+                if codigo.codigo == form.cleaned_data['codigo']:
+                    if codigo.habilitado == True:
+                        añadirSaldo = True
+                    else:
+                        añadirSaldo = False
+                else:
+                    añadirSaldo = False
+            if añadirSaldo:
+                añadirSaldo = True
+                saldoAntiguo = usuario.saldo
+                saldoNuevo = saldoAntiguo + codigo.saldo
+                usuario.saldo = saldoNuevo
+                usuario.save()
+                codigo.habilitado = False
+                codigo.save()
+                messages.add_message(request, messages.SUCCESS,'Se ha añadido saldo a su cuenta')
+                return redirect('/')
+            else:
+                messages.add_message(request, messages.SUCCESS,'El codigo introducido ya ha sido introducido o no existe')
+    else:
+        form = AñadirSaldoForm()
+    datos.update({'form': AñadirSaldoForm()})
+    return render(request,'añadirSaldo2.html', context=datos)
+
+def contact(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        messages.add_message(request, messages.SUCCESS,'Se ha enviado su mensaje')
+        return redirect('/')
+    else:
+        form = ContactForm()
+    datos.update({'form': ContactForm()})
+    return render(request,'contact.html', context=datos)

@@ -1,23 +1,23 @@
-{% extends "base.html" %}
-{% block title %}Robustiano Games{% endblock %}
-{% block content %}
-    <link rel="stylesheet" href="../../media/estilos/inicio.css">
+{% extends "base.html" %} {% block title %}Robustiano Games{% endblock %} {% block content %}
+<link rel="stylesheet" href="../../media/estilos/inicio.css">
 <main>
     <h2 id="title">Mis juegos</h2>
     <section>
         <div class="main">
             <div class="row">
-                    {% for amigo in user.amigos.all %}
-                    <div class="columna">
-                        <div class="content">
-                            <h4 class="tituloVideojuego">{{amigo.username}}</h4>
-                        </div>
+                {% for amigo in user.amigos.all %}
+                <div class="columna">
+                    <div class="content">
+                        {% if amigo.imagen.url != null%}
+                        <img class="imagenJuego" style="width: 100px;" src="{{amigo.imagen.url}}" alt=""> {% else %}
+                        <img class="imagenJuego" style="width: 100px;" src="../../media/images/avatares/avatarDefecto.png" alt=""> {% endif %}
+                        <h4 class="tituloVideojuego">{{amigo.username}}</h4>
                     </div>
-                    {% endfor %}
+                </div>
+                {% endfor %}
             </div>
         </div>
-        {% block pagination %}
-    {% if is_paginated %}
+        {% block pagination %} {% if is_paginated %}
         <div class="pagination">
             <span class="page-links">
                 {% if page_obj.has_previous %}
@@ -25,14 +25,11 @@
                 {% endif %}
                 <span class="page-current">
                     Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-                </span>
-                {% if page_obj.has_next %}
-                    <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
-                {% endif %}
+                </span> {% if page_obj.has_next %}
+            <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a> {% endif %}
             </span>
         </div>
-    {% endif %}
-  {% endblock %}
+        {% endif %} {% endblock %}
     </section>
 </main>
 <footer>

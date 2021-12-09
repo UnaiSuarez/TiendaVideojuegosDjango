@@ -1,0 +1,36 @@
+{% extends "base.html" %} {% block content %}
+<h1>Añadir saldo</h1>
+<style>
+    label {
+        color: white;
+    }
+    
+    form {
+        margin-left: 35%;
+        margin-top: 10%;
+    }
+    
+    #id_saldo {
+        border-radius: 10px;
+        height: 40px;
+        text-align: center;
+    }
+    
+    #boton {
+        border-radius: 10px;
+        margin-left: 17%;
+        height: 40px;
+        width: 100px;
+        margin-top: 10px;
+    }
+</style>
+<div class="container">
+    <form action="" method="post">
+        {% csrf_token %}
+        <table>
+            {{form.as_table}}
+        </table>
+        <input type="submit" value="Modificar" id="boton">
+    </form>
+</div>
+{% endblock %}

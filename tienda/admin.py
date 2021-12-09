@@ -31,7 +31,7 @@ class ImagenVideojuego(admin.ModelAdmin):
     
 @admin.register(TarjetaRegalo)
 class TarjetaRegaloAdmin(admin.ModelAdmin):
-    list_display = ['saldo','codigo']
+    list_display = ['saldo','codigo','habilitado']
 
 
 

@@ -78,6 +78,7 @@ class User(AbstractUser):
 class TarjetaRegalo(models.Model):
     saldo = models.DecimalField(max_length=5, blank=False, decimal_places=2, max_digits=100)
     codigo = models.CharField(max_length=10000, blank=False, primary_key=True)
+    habilitado = models.BooleanField(blank=False, null=False)
     
         
 

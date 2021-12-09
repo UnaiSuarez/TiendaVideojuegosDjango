@@ -1,0 +1,40 @@
+{% extends "base.html" %} {% block content %}
+<h1>Contacto</h1>
+<style>
+    label {
+        color: white;
+    }
+    
+    form {
+        margin-left: 35%;
+        margin-top: 10%;
+    }
+    
+    #id_message,
+    #id_sender {
+        border-radius: 10px;
+        height: 40px;
+    }
+    
+    #id_message {
+        height: 50%;
+    }
+    
+    #boton {
+        border-radius: 10px;
+        margin-left: 17%;
+        height: 40px;
+        width: 100px;
+        margin-top: 10px;
+    }
+</style>
+<div class="container">
+    <form action="" method="post">
+        {% csrf_token %}
+        <table>
+            {{form}}
+        </table>
+        <input type="submit" value="Enviar" id="boton">
+    </form>
+</div>
+{% endblock %}

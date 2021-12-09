@@ -1,0 +1,74 @@
+{% extends "base.html" %} {% block content %}
+<h1>Crear Tarjeta</h1>
+<style>
+    label {
+        color: white;
+    }
+    
+    form {
+        margin-left: 35%;
+        margin-top: 10%;
+    }
+    
+    #id_saldo,
+    #id_codigo {
+        border-radius: 10px;
+        height: 40px;
+        text-align: center;
+    }
+    
+    #boton {
+        border-radius: 10px;
+        margin-left: 17%;
+        height: 40px;
+        width: 120px;
+        margin-top: 10px;
+    }
+    
+    #botonCodigo {
+        border-radius: 10px;
+        height: 40px;
+        width: 120px;
+    }
+</style>
+<div class="container">
+    <form action="" method="post" onsubmit="return valida(this)">
+        {% csrf_token %}
+        <table>
+            {{form}}
+        </table>
+        <input type="submit" value="Crear tarjeta" id="boton">
+    </form>
+    <button id="botonCodigo" onclick="generateRandomString(20)">Generar Codigo</button>
+</div>
+<script>
+    window.onload = document.getElementById('id_codigo').readOnly = true;
+
+    function generateRandomString(num) {
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let result1 = ' ';
+        const charactersLength = characters.length;
+        for (let i = 0; i < num; i++) {
+            result1 += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+
+        document.getElementById('id_codigo').value = result1
+        return false
+    }
+
+    function displayRandomString() {
+        let randomStringContainer = document.getElementById('random_string');
+        randomStringContainer.innerHTML = generateRandomString(8);
+    }
+
+    function valida() {
+        saldo = document.getElementById('id_saldo').value
+        if (saldo == 5 || saldo == 10 || saldo == 20 || saldo == 50 || saldo == 100) {
+            return true
+        } else {
+            alert("Solo se pueden crear tarjetas con el siguiente saldo:\n-5\n-10\n-20\n-50\n-100")
+            return false
+        }
+    }
+</script>
+{% endblock %}
