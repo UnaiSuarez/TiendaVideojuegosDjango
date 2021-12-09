@@ -1,9 +1,22 @@
 {% extends "base.html" %} {% block title %}Robustiano Games{% endblock %} {% block content %}
-<link rel="stylesheet" href="../../media/estilos/inicio.css">
+<link rel="stylesheet" href="../../media/estilos/amigos.css">
 <main>
-    <h2 id="title">Mis juegos</h2>
+    <h2 id="title">Mis Amigos</h2>
     <section>
-        <div class="main">
+        <div id="cajaAmigos">
+            <h2>Mis amigos</h2>
+            <ul id="misAmigos">
+                {% for amigo in user.amigos.all %}
+                <li class="amigo">
+                    <h3>{{amigo.username}}</h3> 
+                    {% if amigo.imagen.url != null%}
+                        <img style="border-radius: 100%;" src="{{amigo.imagen.url}}" alt=""> {% else %}
+                        <img style="border-radius: 50%;" src="../../media/images/avatares/avatarDefecto.png" alt=""> {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <!-- <div class="main">
             <div class="row">
                 {% for amigo in user.amigos.all %}
                 <div class="columna">
@@ -16,7 +29,7 @@
                 </div>
                 {% endfor %}
             </div>
-        </div>
+        </div> -->
         {% block pagination %} {% if is_paginated %}
         <div class="pagination">
             <span class="page-links">
