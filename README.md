@@ -1,5 +1,5 @@
 # Proyecto Django
-## Robustiano Gmes
+## Robustiano Games
 
 ## Descripción
 **Robustiano Games** es una pagina web tipo Steam o parecido la cual se enfoca en la venta de videojuegos de manera online y digital.
