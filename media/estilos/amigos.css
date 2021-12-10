@@ -1,11 +1,10 @@
-#misAmigos, #sugerenciaAmigos {
+#misAmigos,
+#sugerenciaAmigos {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     margin: 16px 0px;
     gap: 20px;
 }
-
-
 
 #cajaAmigos {
     background: black;
@@ -17,27 +16,28 @@
     margin: 20px;
 }
 
-.amigo{
-transition: all 1s;
+.amigo {
+    transition: all 1s;
 }
 
-.amigo h3{
-transition: font-size 1s ;
+.amigo h3 {
+    transition: font-size 1s;
 }
 
-.amigo:hover{
+.amigo:hover {
     padding: 10%;
 }
-.amigo:hover h3{
-font-size: 30px;
+
+.amigo:hover h3 {
+    font-size: 30px;
 }
 
-.amigo:hover img{
+.amigo:hover img {
     height: 16vh;
 }
 
-.amigo{
-    list-style:none;
+.amigo {
+    list-style: none;
     text-align: center;
     box-shadow: 5px 5px 5px 5px gray;
     border-radius: 10px;
@@ -46,12 +46,12 @@ font-size: 30px;
     background-color: gray;
 }
 
-h2{
+h2 {
     text-align: center;
     padding: 20px;
 }
 
-.amigo img{
+.amigo img {
     transition: 1s;
     width: 100%;
     height: 20vh;
@@ -59,7 +59,8 @@ h2{
 }
 
 @media screen and (max-width: 600px) {
-    #misAmigos, #sugerenciaAmigos {
+    #misAmigos,
+    #sugerenciaAmigos {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         margin: 16px 0px;

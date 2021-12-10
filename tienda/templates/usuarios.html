@@ -1,19 +1,31 @@
 {% extends "base.html" %} {% block title %}Robustiano Games{% endblock %} {% block content %}
 <link rel="stylesheet" href="../../media/estilos/amigos.css">
 <main>
-    <h2 id="title">Mis Amigos</h2>
-    <a href="{% url 'usuarios' %}"><button style="float: right; border-radius: 10px; height: 5vh;">Agregar Amigo</button></a>
+    <style>
+        button {
+            border-radius: 10px;
+            width: 50%;
+        }
+    </style>
+    <h2 id="title">usuarios</h2>
     <section>
         <div id="cajaAmigos">
+            <h2>Todos los usuarios</h2>
+            <form class="form-inline mt-2 mt-md-0 " action="{% url 'usuarios' %} " method="get">
+                <input name="q" class="form-control me-2 " type="search " placeholder="Search " aria-label="Search " style="width: 15vh;">
+                <button class="btn btn-outline-success " type="submit " style="width: 15vh;">Buscar</button>
+            </form>
             <ul id="misAmigos">
-                {% for amigo in user.amigos.all %}
+
+                {% for usuario in user_list %} {% if usuario.username != user.username %}
                 <li class="amigo">
-                    <h3>{{amigo.username}}</h3>
-                    {% if amigo.imagen.url != null%}
-                    <img style="border-radius: 100%;" src="{{amigo.imagen.url}}" alt=""> {% else %}
+                    <h3>{{usuario.username}}</h3>
+                    {% if usuario.imagen.url != null%}
+                    <img style="border-radius: 100%;" src="{{usuario.imagen.url}}" alt=""> {% else %}
                     <img style="border-radius: 50%;" src="../../media/images/avatares/avatarDefecto.png" alt=""> {% endif %}
+                    <a href="{% url 'usuario' pk=usuario.username %}"><button>Informacion usuario</button></a>
                 </li>
-                {% endfor %}
+                {% endif %} {% endfor %}
             </ul>
         </div>
         {% block pagination %} {% if is_paginated %}
@@ -29,7 +41,9 @@
             </span>
         </div>
         {% endif %} {% endblock %}
+
     </section>
+
 </main>
 <footer>
     <p>UNAI © 2020</p>

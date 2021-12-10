@@ -1,18 +1,73 @@
 {% extends "base.html" %} {% block title %}Robustiano Games{% endblock %} {% block content %}
-<link rel="stylesheet" href="../../media/estilos/amigos.css">
+<style>
+    #misAmigos {
+        margin-left: 30%;
+        margin-right: 30vh;
+        width: 50vh;
+        gap: 20px;
+    }
+    
+    #cajaAmigos {
+        background: black;
+        padding: 18px 10px;
+        display: flex;
+        flex-direction: column;
+        color: white;
+        border-radius: 10px;
+        margin: 20px;
+    }
+    
+    .amigo {
+        list-style: none;
+        text-align: center;
+        box-shadow: 5px 5px 5px 5px gray;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        background-color: gray;
+        height: 50vh;
+    }
+    
+    h2 {
+        text-align: center;
+        padding: 20px;
+    }
+    
+    .amigo img {
+        width: 100%;
+        height: 40vh;
+        margin-left: 5px;
+    }
+    
+    button {
+        transition: 0.3s;
+        width: 13vh;
+        height: 5vh;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 10px;
+    }
+    
+    button:hover {
+        width: 14vh;
+        height: 6vh;
+    }
+</style>
 <main>
     <h2 id="title">Añadir Amigos</h2>
     <section>
         <div id="cajaAmigos">
-            <h2>Añadir Amigos</h2>
             <ul id="misAmigos">
-                {% for amigo in user.amigos.all %}
+                {% for amigo in usuario %}
                 <li class="amigo">
-                    <h3>{{amigo.username}}</h3> 
+                    <h3>{{amigo.username}}</h3>
                     {% if amigo.imagen.url != null%}
-                        <img style="border-radius: 100%;" src="{{amigo.imagen.url}}" alt=""> {% else %}
-                        <img style="border-radius: 50%;" src="../../media/images/avatares/avatarDefecto.png" alt=""> {% endif %}
+                    <img style="border-radius: 100%;" src="{{amigo.imagen.url}}" alt=""> {% else %}
+                    <img style="border-radius: 50%;" src="../../media/images/avatares/avatarDefecto.png" alt=""> {% endif %}
+                    <form action="" method="post">
+                        {% csrf_token %}
                         <button>Agregar</button>
+                    </form>
                 </li>
                 {% endfor %}
             </ul>
