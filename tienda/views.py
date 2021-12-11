@@ -182,12 +182,12 @@ def AñadirSaldo2(request):
                 if codigo.codigo == form.cleaned_data['codigo']:
                     if codigo.habilitado == True:
                         añadirSaldo = True
+                        break
                     else:
                         añadirSaldo = False
                 else:
                     añadirSaldo = False
             if añadirSaldo:
-                añadirSaldo = True
                 saldoAntiguo = usuario.saldo
                 saldoNuevo = saldoAntiguo + codigo.saldo
                 usuario.saldo = saldoNuevo
@@ -256,3 +256,6 @@ def AñadirAmigo(request, pk):
         return redirect('/')
     
     return render(request, 'agregarAmigo.html', context=datos)
+
+def Noticias(request):
+    return render(request, 'noticias.html', context=datos)
