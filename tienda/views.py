@@ -7,7 +7,6 @@ from tienda.models import  Genre, TarjetaRegalo, User, Videojuego
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
-import requests
 from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth.decorators import login_required
 
