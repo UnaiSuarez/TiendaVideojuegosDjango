@@ -172,7 +172,7 @@ def crear_tarjeta(request):
 
 @login_required
 def AñadirSaldo2(request):
-    añadirSaldo = True
+    añadirSaldo = False
     usuario = request.user
     if request.method == 'POST':
         form = AñadirSaldoForm(request.POST)
@@ -183,10 +183,6 @@ def AñadirSaldo2(request):
                     if codigo.habilitado == True:
                         añadirSaldo = True
                         break
-                    else:
-                        añadirSaldo = False
-                else:
-                    añadirSaldo = False
             if añadirSaldo:
                 saldoAntiguo = usuario.saldo
                 saldoNuevo = saldoAntiguo + codigo.saldo
